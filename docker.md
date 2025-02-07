@@ -7,19 +7,19 @@ pull the ubuntu image
 docker pull ubuntu
 ```
 
-now you can run it with:
+run it with:
 ```
 docker run -it --name [name] ubuntu /bin/bash
 ```
 
-now inside the container run this:
+inside the container run this:
 ```
 apt update && apt upgrade
 ```
 
 ## Golang installation
 
-first download version 1.23.5 with:
+download version 1.23.5 with:
 ```
 wget https://go.dev/dl/go1.23.5.linux-amd64.tar.gz
 ```
@@ -27,19 +27,22 @@ remove old installations
 ```
 rm -rf /usr/local/go
 ```
+
+then
 ```
 tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-verify installation with this command:
+verify installation:
 ```
 go version
 ```
-should output something like:
-
+should output:
+```
 go version go1.23.5 linux/amd64
+```
 
 ### Set up Go workspace
 
@@ -55,7 +58,7 @@ source ~/.bashrc
 
 ### Test the installation
 
-paste this in some *.go* file
+*hello.go*
 ```
 package main
 import "fmt"
@@ -76,7 +79,7 @@ Hello, Go!
 
 source: https://go.dev/doc/install
 
-## Protobuf compiler
+## Protocol Buffer Compiler installation
 
 ```
 PB_REL="https://github.com/protocolbuffers/protobuf/releases"
@@ -105,7 +108,7 @@ protoc --version
 
 ### Testing the installation
 
-paste this in some *.proto* file
+*example.proto*
 ```
 syntax = "proto3";
 
@@ -121,12 +124,12 @@ message SearchRequest {
 
 run with:
 ```
-protoc --go_out=. *.proto
+protoc --go_out=. example.proto
 ```
 
 source: 
-https://protobuf.dev/reference/go/go-generated/#package
-https://protobuf.dev/programming-guides/proto3/
+- https://protobuf.dev/reference/go/go-generated/#package
+- https://protobuf.dev/programming-guides/proto3/
 
 
 ## Following the Go Protocol Buffer Tutorial
@@ -157,7 +160,7 @@ then
 source .bashrc
 ```
 
-paste this in *person.proto*
+*person.proto*
 ```
 syntax="proto3";
 
@@ -171,15 +174,17 @@ message Person {
 }
 ```
 
-run it with this command:
+run with:
 ```
 protoc --go_out=. person.proto
 ```
 
-should output *person.pb.go*
+should output *person.pb.go* inside *proto* package
 
 ---
 There are some changes, in the import section we added *person "your_package_name/proto"* this is because of better package and module structure of Go. *person* is the alias assigned to where the *Person* struct is, if you omit the use of *person* you'll get an *undefined* because Go doesn't know where *Person* is defined
+
+*main.go*
 ```
 package main
 
@@ -235,9 +240,9 @@ should output:
 Elliot
 ```
 
-source
-https://withcodeexample.com/go-mod-init-dependency-management-go/
-https://grpc.io/docs/languages/go/quickstart/
-https://tutorialedge.net/golang/go-protocol-buffer-tutorial/
-https://go.dev/doc/modules/layout
-some chatgpt help
+source:
+- https://withcodeexample.com/go-mod-init-dependency-management-go/
+- https://grpc.io/docs/languages/go/quickstart/
+- https://tutorialedge.net/golang/go-protocol-buffer-tutorial/
+- https://go.dev/doc/modules/layout
+- some chatgpt help
