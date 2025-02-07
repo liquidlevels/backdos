@@ -1,4 +1,4 @@
-# Install gRPC and Protocol Buffer9 with golang inside a docker container
+# Install gRPC and Protocol Buffer with golang inside a docker container
 
 ## Docker container
 
@@ -25,11 +25,11 @@ go version
 ```
 should output something like:
 
-    go version go1.23.5 linux/amd64
+go version go1.23.5 linux/amd64
 
 set up go workspace
 
-open *.bashrc*
+open .bashrc
 ```
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -38,7 +38,7 @@ source ~/.bashrc
 
 now we can test the installation
 
-    open hello.go
+open hello.go
 ```
 package main
 import "fmt"
@@ -53,6 +53,23 @@ go run hello.go
 ```
 
 should output
-    Hello, Go!
+
+Hello, Go!
 
 source: https://go.dev/doc/install
+
+## Protobuf compiler
+
+```
+PB_REL="https://github.com/protocolbuffers/protobuf/releases"
+curl -LO $PB_REL/download/v25.1/protoc-25.1-linux-x86_64.zip
+unzip protoc-25.1-linux-x86_64.zip -d $HOME/.local
+apt install unzip (in case you didnt have it)
+```
+open .bashrc
+```
+export PATH="$PATH:$HOME/.local/bin"
+source .bashrc
+
+protoc --version
+```
