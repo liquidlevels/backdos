@@ -160,6 +160,8 @@ then
 source .bashrc
 ```
 
+### First part
+
 *person.proto*
 ```
 syntax="proto3";
@@ -238,6 +240,97 @@ should output:
 [10 6 69 108 108 105 111 116 16 24]
 24
 Elliot
+```
+
+### Second part
+
+*person.proto*
+```
+syntax="proto3";
+
+package main;
+option go_package = "./proto";
+
+message SocialFollowers {
+  int32 youtube = 1;
+  int32 twitter = 2;
+}
+
+message Person {
+      string name = 1;
+      int32 age = 2;
+    SocialFollowers socialFollowers = 3;
+}
+```
+
+run with:
+```
+protoc --go_out=. person.proto
+```
+
+should output *person.pb.proto*
+
+*main.proto*
+```
+package main
+
+import (
+    "fmt"
+    "log"
+
+    //use this import because the other used in the tutorial is deprecated
+    "google.golang.org/protobuf/proto"
+
+    protogo "your_package_name/proto"
+)
+
+func main() {
+
+    elliot := Person{
+        Name: "Elliot",
+        Age:  24,
+        SocialFollowers: &protogo.SocialFollowers{
+            Youtube: 2500,
+            Twitter: 1400,
+        },
+    }
+    
+    data, err := proto.Marshal(elliot)
+    if err != nil {
+        log.Fatal("marshaling error: ", err)
+    }
+
+    // let's go the other way and unmarshal
+    // our protocol buffer into an object we can modify
+    // and use
+    newElliot := &protogo.Person{}
+    err = proto.Unmarshal(data, newElliot)
+    if err != nil {
+        log.Fatal("unmarshaling error: ", err)
+    }
+
+    // print out our `newElliot` object
+    // for good measure
+    fmt.Println(newElliot.GetName())
+    fmt.Println(newElliot.GetAge())
+    fmt.Println(newElliot.SocialFollowers.GetTwitter())
+    fmt.Println(newElliot.SocialFollowers.GetYoutube())
+
+}
+
+```
+
+run with:
+```
+go run main.go
+```
+
+should output:
+```
+Elliot
+24
+1400
+2500
 ```
 
 source:
