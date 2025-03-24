@@ -77,6 +77,13 @@ Direccion
 | 8320509 | NINGUNO    | 0              | HERMOSILLO          | 21840        | Ejido Hermosillo  | 2          |
 | 8838283 | MACHERO    | 366            | SECCIÓN PRIMERA     | 0            | Ensenada          | 2          |
 
+Informacion Legal
+
+| razon_social                          | tipo_establecimiento | fecha_alta | establecimiento_id |
+|---------------------------------------|----------------------|------------|--------------------|
+| ABS PROMOTORA DE MEXICO SA DE CV      | 1                    | 2019-11    | 8320509            |
+| ABULONES CULTIVADOS S DE RL DE CV     | 1                    | 2019-11    | 8838283            |
+
 
 
 ### Diccionarios
